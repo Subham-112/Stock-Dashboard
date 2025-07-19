@@ -10,7 +10,7 @@ app.use(express.json());
 
 const db = new sqlite.Database('./database.db');
 
-app.get("/stock", (req, res) => {
+app.get("/stocks", (req, res) => {
   db.all("SELECT DISTINCT symbol FROM stocks", [], (err, rows) => {
     if (err) return res.status(500).json({ error: err.message });
     res.json(rows);
