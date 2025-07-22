@@ -1,5 +1,47 @@
-export default function LeftComponent() {
-    return (
-        <div style={{ backgroundColor: 'red' }}></div>
-    )
+import { useEffect, useState } from "react";
+
+export default function LeftComponent({ showBar, StockNmAndShowBar, setValForBar }) {
+  const [stocks, setStocks] = useState([
+    {
+      symbol: "",
+    },
+  ]);
+
+  useEffect(() => {
+    const stockName = async () => {
+      const url = "http://localhost:1000/stocks";
+      try {
+        const response = await fetch(url, { method: "GET" });
+        const data = await response.json();
+
+        setStocks(data);
+      } catch (error) {
+        console.error("Error fetching stock data:", error);
+      }
+    };
+
+    stockName();
+  }, []);
+
+  const printVal = (e) => {
+    StockNmAndShowBar(e.target.innerText)
+    setValForBar(true)
+    console.log(showBar)
+  }
+
+  return (
+    <div
+      className="h-100 pt-3 ps-3"
+      style={{
+        borderRadius: '1rem',
+        boxShadow: '0px 0px 20px 5px black'
+      }}
+    >
+      <ol className="ms-3 fs-5 d-flex flex-column gap-4">
+        {stocks.map((stock, index) => (
+          <li onClick={(e) => (printVal(e))} style={{ fontWeight: 600, cursor: 'pointer' }} key={index}>{stock.symbol}</li>
+        ))}
+      </ol>
+    </div>
+  );
 }

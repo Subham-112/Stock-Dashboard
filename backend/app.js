@@ -17,7 +17,7 @@ app.get("/stocks", (req, res) => {
   });
 });
 
-app.get("/stock/:symbol", (req, res) => {
+app.get("/stocks/:symbol", (req, res) => {
   const symbol = req.params.symbol;
   db.all("SELECT * FROM stocks WHERE symbol = ?", [symbol], (err, rows) => {
     if (err) return res.status(500).json({ error: err.message });
