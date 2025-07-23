@@ -9,7 +9,7 @@ export default function LeftComponent({ showBar, StockNmAndShowBar, setValForBar
 
   useEffect(() => {
     const stockName = async () => {
-      const url = "http://192.168.29.194:1000/stocks";
+      const url = "/stocks";
       try {
         const response = await fetch(url, { method: "GET" });
         const data = await response.json();

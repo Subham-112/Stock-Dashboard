@@ -17,7 +17,7 @@ export default function BarDetails({
   useEffect(() => {
     const getData = async () => {
       if (!stockName) return;
-      const url = `http://192.168.29.194:1000/stocks/${stockName}`;
+      const url = `/stocks/${stockName}`;
       try {
         const response = await fetch(url, { method: "GET" });
         const data = await response.json();
@@ -53,7 +53,7 @@ export default function BarDetails({
   const options = {
     chart: {
       type: "candlestick",
-      height: 300,
+      height: 500,
       background: "#1f1f2e",
       toolbar: {
         show: true,
@@ -132,7 +132,7 @@ export default function BarDetails({
           options={options}
           series={series}
           type="candlestick"
-          width={responMobile ? 340 : 400}
+          width={responMobile ? 340 : 930}
           height={responMobile ? 430 : 420}
         />
       </div>
