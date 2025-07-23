@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function LeftComponent({ showBar, StockNmAndShowBar, setValForBar }) {
+export default function LeftComponent({ showBar, StockNmAndShowBar, setValForBar, openPopup, responMobile }) {
   const [stocks, setStocks] = useState([
     {
       symbol: "",
@@ -9,7 +9,7 @@ export default function LeftComponent({ showBar, StockNmAndShowBar, setValForBar
 
   useEffect(() => {
     const stockName = async () => {
-      const url = "http://localhost:1000/stocks";
+      const url = "http://192.168.29.194:1000/stocks";
       try {
         const response = await fetch(url, { method: "GET" });
         const data = await response.json();
@@ -26,7 +26,7 @@ export default function LeftComponent({ showBar, StockNmAndShowBar, setValForBar
   const printVal = (e) => {
     StockNmAndShowBar(e.target.innerText)
     setValForBar(true)
-    console.log(showBar)
+    openPopup(true)
   }
 
   return (

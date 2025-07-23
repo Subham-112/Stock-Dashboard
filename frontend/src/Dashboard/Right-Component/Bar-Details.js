@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
-export default function BarDetails({ stockName, setValForBar }) {
+export default function BarDetails({
+  stockName,
+  setValForBar,
+  responMobile,
+  closePopup,
+}) {
   const [stockDetails, setStockDetails] = useState([]);
   const [stats, setStats] = useState({
     high: null,
@@ -12,7 +17,7 @@ export default function BarDetails({ stockName, setValForBar }) {
   useEffect(() => {
     const getData = async () => {
       if (!stockName) return;
-      const url = `http://localhost:1000/stocks/${stockName}`;
+      const url = `http://192.168.29.194:1000/stocks/${stockName}`;
       try {
         const response = await fetch(url, { method: "GET" });
         const data = await response.json();
@@ -37,7 +42,6 @@ export default function BarDetails({ stockName, setValForBar }) {
           low: low.toFixed(2),
           avgVolume: Math.round(avgVolume),
         });
-
       } catch (err) {
         console.error({ err: err.message });
       }
@@ -49,10 +53,17 @@ export default function BarDetails({ stockName, setValForBar }) {
   const options = {
     chart: {
       type: "candlestick",
-      height: 500,
+      height: 300,
       background: "#1f1f2e",
       toolbar: {
         show: true,
+      },
+      animations: {
+        enabled: false,
+      },
+      zoom: {
+        enabled: false,
+        autoScaleYaxis: false,
       },
     },
     title: {
@@ -92,49 +103,55 @@ export default function BarDetails({ stockName, setValForBar }) {
     },
   ];
 
+  const handleClose = () => {
+    setValForBar(false);
+    closePopup();
+  };
+
   return (
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        borderRadius: "1rem",
-        boxShadow: "0px 0px 20px 5px black",
-      }}
-    >
-      <span
-        style={{
-          height: "10%",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "1rem",
-        }}
-      >
-        <h2>{stockName}</h2>
-        <p><strong>52-Week High:</strong> {stats.high}</p>
-        <p><strong>52-Week Low:</strong> {stats.low}</p>
-        <p><strong>Avrage Volume:</strong> {stats.avgVolume}</p>
+    <div className={`${responMobile ? "bar-resp" : "bar"}`}>
+      <span className={`${responMobile ? "bar-52-resp" : "bar-52"}`}>
+        <h2 className={`${responMobile ? "bar-h2-resp" : "bar-h2"}`}>
+          {stockName}
+        </h2>
+        <span className={`${responMobile ? "bar-span-resp" : "bar-span"}`}>
+          <p>
+            <strong>52-Week High:</strong> {stats.high}
+          </p>
+          <p>
+            <strong>52-Week Low:</strong> {stats.low}
+          </p>
+          <p>
+            <strong>Avrage Volume:</strong> {stats.avgVolume}
+          </p>
+        </span>
       </span>
 
-      <div style={{ padding: "0 1rem", marginTop: "1rem" }}>
+      <div className={`${responMobile ? "chart-resp" : "chart"}`}>
         <ReactApexChart
           options={options}
           series={series}
           type="candlestick"
-          height={450}
+          width={responMobile ? 340 : 400}
+          height={responMobile ? 430 : 420}
         />
       </div>
       <span
-        style={{
-          width: "100%",
-          height: "10%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: "2rem",
-        }}
+        className={`${responMobile ? "bar-btn-span-resp" : "bar-btn-span"}`}
       >
-        <button className="bar-close" onClick={() => setValForBar(false)}>
+        <button
+          className="bar-close"
+          style={
+            responMobile
+              ? {
+                  width: "50%",
+                  height: "60px",
+                  fontSize: "0.9rem",
+                }
+              : {}
+          }
+          onClick={() => handleClose()}
+        >
           <i style={{ margin: 0 }} className="fa-solid fa-xmark"></i>
         </button>
       </span>
