@@ -18,7 +18,7 @@ export default function BarDetails({
     const getData = async () => {
       if (!stockName) return;
       try {
-        const response = await fetch(`${process.env.VITE_API_URL}/stocks/${stockName}`, { method: "GET" });
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/stocks/${stockName}`, { method: "GET" });
         const data = await response.json();
 
         const formatted = data.map((item) => ({
