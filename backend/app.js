@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const sqlite = require('sqlite3').verbose();
+const path = require('path');
 
 const app = express();
 const PORT = 1000;
@@ -10,7 +11,8 @@ app.use(express.json());
 
 const db = new sqlite.Database('./database.db');
 
-app.use(express.static(path.join(__dirname, '../frontend/build')));
+const frontendPath = path.join(__dirname, '../frontend/build');
+app.use(express.static(frontendPath));
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
