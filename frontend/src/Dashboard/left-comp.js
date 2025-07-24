@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 
-export default function LeftComponent({ showBar, StockNmAndShowBar, setValForBar, openPopup, responMobile }) {
+export default function LeftComponent({
+  showBar,
+  StockNmAndShowBar,
+  setValForBar,
+  openPopup,
+  responMobile,
+}) {
   const [stocks, setStocks] = useState([
     {
       symbol: "",
@@ -10,7 +16,15 @@ export default function LeftComponent({ showBar, StockNmAndShowBar, setValForBar
   useEffect(() => {
     const stockName = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/stocks`, { method: "GET" });
+        const response = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/stocks?nocache=${Date.now()}`,
+          {
+            method: "GET",
+            headers: {
+              "Cache-Control": "no-cache",
+            },
+          }
+        );
         const data = await response.json();
 
         setStocks(data);
@@ -23,22 +37,28 @@ export default function LeftComponent({ showBar, StockNmAndShowBar, setValForBar
   }, []);
 
   const printVal = (e) => {
-    StockNmAndShowBar(e.target.innerText)
-    setValForBar(true)
-    openPopup(true)
-  }
+    StockNmAndShowBar(e.target.innerText);
+    setValForBar(true);
+    openPopup(true);
+  };
 
   return (
     <div
       className="h-100 pt-3 ps-3"
       style={{
-        borderRadius: '1rem',
-        boxShadow: '0px 0px 20px 5px black'
+        borderRadius: "1rem",
+        boxShadow: "0px 0px 20px 5px black",
       }}
     >
       <ol className="ms-3 fs-5 d-flex flex-column gap-4">
         {stocks.map((stock, index) => (
-          <li onClick={(e) => (printVal(e))} style={{ fontWeight: 600, cursor: 'pointer' }} key={index}>{stock.symbol}</li>
+          <li
+            onClick={(e) => printVal(e)}
+            style={{ fontWeight: 600, cursor: "pointer" }}
+            key={index}
+          >
+            {stock.symbol}
+          </li>
         ))}
       </ol>
     </div>
