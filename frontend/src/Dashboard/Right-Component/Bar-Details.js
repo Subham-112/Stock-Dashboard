@@ -18,7 +18,7 @@ export default function BarDetails({
     const getData = async () => {
       if (!stockName) return;
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/stocks/${stockName}`, { 
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/stocks/${stockName}`, { 
           method: "GET", 
           headers: {
             "Cache-Control": "no-cache"

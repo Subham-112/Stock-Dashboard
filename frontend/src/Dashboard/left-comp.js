@@ -10,7 +10,7 @@ export default function LeftComponent({ showBar, StockNmAndShowBar, setValForBar
   useEffect(() => {
     const stockName = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/stocks`, { method: "GET" });
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/stocks`, { method: "GET" });
         const data = await response.json();
 
         setStocks(data);
