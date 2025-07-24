@@ -17,7 +17,7 @@ export default function LeftComponent({
     const stockName = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_BACKEND_URL}/stocks?nocache=${Date.now()}`,
+          `https://stock-dashboard-oufr.onrender.com/stocks?nocache=${Date.now()}`,
           {
             method: "GET",
             headers: {
@@ -25,8 +25,9 @@ export default function LeftComponent({
             },
           }
         );
-        console.log("api", import.meta.env.VITE_BACKEND_URL);
+        // console.log("api", import.meta.env.VITE_BACKEND_URL);
         const data = await response.json();
+        // console.log(data)
 
         setStocks(data);
       } catch (error) {

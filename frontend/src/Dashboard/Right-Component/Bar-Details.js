@@ -19,9 +19,7 @@ export default function BarDetails({
       if (!stockName) return;
       try {
         const response = await fetch(
-          `${
-            import.meta.env.VITE_BACKEND_URL
-          }/stocks/${stockName}?nocache=${Date.now()}`,
+          `https://stock-dashboard-oufr.onrender.com/stocks/${stockName}?nocache=${Date.now()}`,
           {
             method: "GET",
             headers: {
