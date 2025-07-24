@@ -29,7 +29,7 @@ export default function LeftComponent({
 
         setStocks(data);
       } catch (error) {
-        console.error("Error fetching stock data:", error);
+        console.error("Error fetching stock data:-", error);
       }
     };
 
