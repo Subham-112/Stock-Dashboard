@@ -7,8 +7,7 @@
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon app.js",
-    "build": "cd ../frontend && npm install && npm run build",
-    "postinstall": "npm install"
+    "build": "cd ../frontend && npm install && npm run build"
   },
   "keywords": [],
   "author": "Subham",
