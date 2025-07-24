@@ -25,6 +25,7 @@ export default function LeftComponent({
             },
           }
         );
+        console.log("api", import.meta.env.VITE_BACKEND_URL);
         const data = await response.json();
 
         setStocks(data);
